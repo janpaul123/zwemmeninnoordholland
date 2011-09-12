@@ -1,0 +1,260 @@
+p {
+	text-align: justify;
+}
+
+#map {
+	width: 450px;
+	height: 600px;
+	position: fixed;
+	left: 20px;
+	top: 20px;
+}
+
+#map_canvas { 
+	width: 450px;
+	height: 600px;
+}
+
+.controlUI {
+	background-color: white;
+	border: black 1px solid;
+	cursor: pointer;
+	cursor: hand;
+	text-align: center;
+}
+
+.controlText {
+	font-size: 12px;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+#overzicht {
+	float: right;
+}
+
+#rechts {
+	position: absolute;
+	left: 500px;
+	top: 20px;
+	width: 500px;
+}
+
+#formulier {
+	height: 30px;
+}
+
+#email {
+	width: 300px;
+	float: left;
+	height: 24px;
+}
+
+#submit {
+	float: left;
+	margin-top: 0px;
+	margin-left: 10px;
+	height: 24px;
+}
+
+#lijst {
+	width: 500px;
+	border-top: 1px #A8C0DE solid;
+}
+
+.verberg {
+	display: none;
+}
+
+#minderli {
+	display: none;
+}
+
+.mapText {
+	position: relative;
+	left: -50%;
+	top: -3px;
+	white-space: nowrap;
+	padding: 2px;
+	text-shadow: -1px 0px black, 1px 0px black, 0px 1px black, 0px -1px black, -1px -1px 10px black;
+	color: white;
+	font-size: 10px;
+}
+.locatie {
+	position: relative;
+	border-bottom: 1px #A8C0DE solid;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	width: 500px;
+	min-height: 45px;
+	cursor: pointer;
+	cursor: hand;
+}
+
+.locatie:hover {
+	background-color: #eee;
+}
+
+/*.locatie*/.selected {
+	background-color: #E5F1FF !important;
+}
+
+.locatie .zwemfolder {
+	position: absolute;
+	left: 3px;
+	top: 5px;
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	background-color: #A8C0DE;
+	font-size: 18px;
+	color: white;
+	text-align: center;
+}
+
+.locatie h2 {
+	position: absolute;
+	left: 55px;
+	top: 5px;
+	line-height: 40px;
+}
+
+.locatie .cbs {
+	position: absolute;
+	bottom: 5px;
+	left: 55px;
+	font-style: small-caps;
+	color: gray;
+}
+
+.locatie .binnenin {
+	margin-top: 30px;
+	margin-left: 55px;
+	margin-bottom: 20px;
+}
+
+.locatie .advies {
+	font-weight: bold;
+}
+
+/*.locatie*/.giftig_1 {
+	background-image: url(stripe_yellow.png);
+}
+
+/*.locatie*/.giftig_2 {
+	background-image: url(stripe_red.png);
+}
+
+.locatie .attributen {
+	position: absolute;
+	height: 20px;
+	bottom: 5px;
+	right: 5px;
+}
+
+.locatie .attributen .attribuut {
+	width: 20px;
+	height: 20px;
+	background-image: url(sprite.png);
+	float: left;
+}
+
+.doorzicht_0 {
+	background-position: 0px -40px;
+}
+
+.doorzicht_1 {
+	background-position: 0px -20px;
+}
+
+.doorzicht_2 {
+	background-position: 0px -2px;
+}
+
+.drijflijn {
+	background-position: 0px -60px;
+}
+
+.aflopend {
+	background-position: 0px -81px;
+}
+
+.zandstrand {
+	background-position: 0px -102px;
+}
+
+.toiletten {
+	background-position: 0px -123px;
+}
+
+.douches {
+	background-position: 0px -144px;
+}
+
+.restaurant {
+	background-position: 0px -165px;
+}
+
+.toegankelijk {
+	background-position: 0px -185px;
+}
+
+.ov {
+	background-position: 0px -206px;
+}
+
+.parkeerplaats {
+	background-position: 0px -227px;
+}
+
+.huisdieren {
+	background-position: 0px -248px;
+}
+
+.ehbo {
+	background-position: 0px -268px;
+}
+
+.drijflijn_niet {
+	background-position: -29px -60px;
+}
+
+.aflopend_niet {
+	background-position: -29px -81px;
+}
+
+.zandstrand_niet {
+	background-position: -29px -102px;
+}
+
+.toiletten_niet {
+	background-position: -29px -123px;
+}
+
+.douches_niet {
+	background-position: -29px -144px;
+}
+
+.restaurant_niet {
+	background-position: -29px -165px;
+}
+
+.toegankelijk_niet {
+	background-position: -29px -185px;
+}
+
+.ov_niet {
+	background-position: -29px -206px;
+}
+
+.parkeerplaats_niet {
+	background-position: -29px -227px;
+}
+
+.huisdieren_niet {
+	background-position: -29px -248px;
+}
+
+.ehbo_niet {
+	background-position: -29px -268px;
+}
