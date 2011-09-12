@@ -1,5 +1,51 @@
+html {
+	overflow-y: scroll;
+}
+
 p {
 	text-align: justify;
+}
+
+#page {
+	width: 790px;
+	margin: 0 auto;
+}
+
+h1 {
+	font-variant: small-caps;
+	line-height: 1em;
+}
+
+#top {
+	text-align: center;
+	margin-top: 10px;
+	border-bottom: 1px gray solid;
+}
+
+#menu {
+	margin: 1em 0;
+	padding: 0px 0.5em;
+	list-style-type: none;
+	list-style-image: none;
+	text-align: center;
+}
+
+#menu li {
+	margin: 0;
+	padding: 0;
+	float: left;
+	display: inline;
+}
+
+#menu a {
+	display: block;
+	width: 100%;
+	text-decoration: none;
+	display: inline-block;
+}
+
+#page {
+	position: relative;
 }
 
 #map {

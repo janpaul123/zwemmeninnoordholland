@@ -145,7 +145,6 @@ $(document).ready(function() {
 		$('#minderli').show();
 		$('#meerli').hide();
 		e.preventDefault();
-		return false;
 	});
 	
 	$('#minder').click(function(e) {
@@ -153,7 +152,14 @@ $(document).ready(function() {
 		$('#minderli').hide();
 		$('#meerli').show();
 		e.preventDefault();
-		return false;
+	});
+	
+	$('#menu a').click(function(e) {
+		$('#content > div').hide();
+		$($(this).attr('id') + '_content').show();
+		$('#menu a').removeClass('selected');
+		$(this).addClass('selected');
+		e.preventDefault();
 	});
 });
 </script>
@@ -161,107 +167,123 @@ $(document).ready(function() {
 </head>
 <body>
 
-<div id="map"><div id="map_canvas"></div></div>
-
-<div id="rechts">
-	<div id="info">
+<div id="page">
+	<div id="top">
 		<h1>Veilig zwemmen in Noord-Holland</h1>
-		
-		<p>
-			Op deze site vindt u een overzicht van alle open lucht zwemlocaties in de provincie
-			Noord Holland. Omdat veiligheid voorop staat kunt u de kwaliteit van het water per locatie
-			aflezen aan de kleuren rood (negatief zwemadvies) en geel (waarschuwing). Deze waterkwaliteit
-			wordt in het zwemwaterseizoen (van 1 mei tot 1 oktober) elke twee weken door de provincie
-			gemeten.
-		</p>
-		
-		<p>
-			De nummering en symbolen die gebruikt worden op deze site komen overeen met de zwemwaterfolder
-			die wordt uitgegeven door de provincie. In deze folder vindt u bovendien meer informatie
-			over gezondheidsklachten en risico's van het buiten zwemmen. Voor meer informatie belt
-			u de zwemwatertelefoon <strong itemprop="tel" class="tel">0800 9986734</strong> (gratis) of kijkt
-			u op NOS teletekst pagina <strong>725</strong>.
-		</p>
-		
-		<p>
-			<a href="http://www.noord-holland.nl/web/file?uuid=e6b762bc-451f-4173-989d-90458cdf64ac&owner=f22bc2f4-2ebd-4086-8aa8-7e9c95211aca&contentid=809">Download zwemwaterfolder 'Veilig zwemmen' (2011)</a>
-		</p>
-		
-		<p>
-			Als u op de hoogte wilt worden gehouden van nieuws omtrent zwemmen en veiligheid, vul
-			dan hier uw e-mail adres in en klik op <strong>Abonneer</strong>:
-		</p>
-		
-		<div id="formulier">
-			<input name="email" id="email" type="email" placeholder="E-mail adres"/>
-			<button id="submit" type="submit">Abonneer</button>
-		</div>
-		
-		<br/>
-		
-		De laatste berichten staan hier nog eens ter referentie:
-		<ul>
-			<li><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Zwemwaterkwaliteit.htm" target="_blank">9 september 2011</a></li>
-			<li><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Zwemverbod-Oud-Valkeveen-opgeheven.htm" target="_blank">6 september 2011</a></li>
-			<li><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Zwemverbod-Oud-Valkeveen-te-Naarden.htm" target="_blank">1 september 2011</a></li>
-			<li class="verberg"><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Westeinderplassen-Vrouwentroost-Aalsmeer-zwemverbod-opgeheven.htm" target="_blank">31 augustus 2011</a></li>
-			<li class="verberg"><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Zwemverbod-Westeinderplassen-Vrouwentroost-in-Aalsmeer.htm" target="_blank">26 augustus 2011</a></li>
-			<li class="verberg"><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Waarschuwing-blauwalg-Muiderberg-en-Naarderbos-ingetrokken.htm" target="_blank">16 augustus 2011</a></li>
-			<li class="verberg"><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Zwemverbod-Muiderberg-en-Almeerderstrand-opgeheven.htm" target="_blank">18 juli 2011</a></li>
-			<li class="verberg"><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Zwemverbod-voor-Ursemmerplas-opgeheven.htm" target="_blank">7 juli 2011</a></li>
-			<li class="verberg"><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Zwemverbod-Ursemmerplas-ingesteld.htm" target="_blank">29 juni 2011</a></li>
-			<li class="verberg"><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Zwemverbod-locatie-De-Kuifeend-Jagersveld.htm" target="_blank">23 juni 2011</a></li>
-			<li class="verberg"><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Zwemverbod-strand-Muiderberg-langer-van-kracht.htm" target="_blank">22 juni 2011</a></li>
-			<li id="meerli"><a href="#" id="meer">meer...</a></li>
-			<li id="minderli"><a href="#" id="minder">minder...</a></li>
+		<ul id="menu">
+			<li><a id="informatie" class="selected" href="#">Informatie</a></li>
+			<li><a id="nieuws" href="#">Nieuws</a></li>
+			<li><a id="kaart" href="#">Kaart</a></li>
+			<li><a id="legenda" href="#">Legenda</a></li>
+			<li><a id="gezondheid" href="#">Gezondheid</a></li>
 		</ul>
 	</div>
-	<div id="lijst">
-	<?php
-		$attrlijst = array(
-			'drijflijn' => array('drijflijn', 'geen drijflijn'),
-			'aflopend' => array('geleidelijk aflopende onderwaterbodem', 'geen geleidelijk aflopende onderwaterbodem'),
-			'zandstrand' => array('zandstrand', 'geen zandstrand'),
-			'toiletten' => array('toiletten', 'geen toiletten'),
-			'douches' => array('douches', 'geen douches'),
-			'restaurant' => array('restaurant, paviljoen, snackbar', 'geen restaurant, paviljoen, snackbar'),
-			'toegankelijk' => array('vrij toegankelijk', 'niet vrij toegankelijk'),
-			'ov' => array('bereikbaar met openbaar vervoer', 'niet bereikbaar met openbaar vervoer'),
-			'parkeerplaats' => array('parkeergelegenheid', 'geen parkeergelegenheid'),
-			'huisdieren' => array('huisdieren toegestaan', 'huisdieren niet toegestaan'),
-			'ehbo' => array('EHBO', 'geen EHBO'),
-		);
-		$doorzichtlegenda = array(
-			0 => 'doorzicht meer dan 1 meter',
-			1 => 'doorzicht 0,5 tot 1 meter',
-			2 => 'doorzicht minder dan 0,5 meter',
-		);
-		
-		foreach ($locaties as $id => $locatie) {
-			//print_r($locatie);
-			$doorzicht = $doorzichtlegenda[$locatie['doorzicht']];
-			$attributen = "<div class='attribuut doorzicht_{$locatie['doorzicht']}' title='{$doorzicht}' alt='{$doorzicht}'></div>";
-			foreach ($attrlijst as $naam => $omschrijving) {
-				if ($locatie[$naam] == 1) $attributen .= "<div class='attribuut {$naam}' title='{$omschrijving[0]}' alt='{$omschrijving[0]}'></div>";
-				else $attributen .= "<div class='attribuut {$naam}_niet' title='{$omschrijving[1]}' alt='{$omschrijving[1]}'></div>";
-			}
+	<div id="content">
+		<div id="kaart_content">
+			<div id="map"><div id="map_canvass"></div></div>
 			
-			$cbs_groot = strtoupper($locatie['cbs']);
-			
-			echo "
-				<div id='$id' class='locatie giftig_{$locatie['giftig']}'>
-					<div class='binnenin'>
-						<div class='advies'>{$locatie['advies']}</div>
+			<div id="rechts">
+				<div id="info">
+					
+					
+					<p>
+						Op deze site vindt u een overzicht van alle open lucht zwemlocaties in de provincie
+						Noord Holland. Omdat veiligheid voorop staat kunt u de kwaliteit van het water per locatie
+						aflezen aan de kleuren rood (negatief zwemadvies) en geel (waarschuwing). Deze waterkwaliteit
+						wordt in het zwemwaterseizoen (van 1 mei tot 1 oktober) elke twee weken door de provincie
+						gemeten.
+					</p>
+					
+					<p>
+						De nummering en symbolen die gebruikt worden op deze site komen overeen met de zwemwaterfolder
+						die wordt uitgegeven door de provincie. In deze folder vindt u bovendien meer informatie
+						over gezondheidsklachten en risico's van het buiten zwemmen. Voor meer informatie belt
+						u de zwemwatertelefoon <strong itemprop="tel" class="tel">0800 9986734</strong> (gratis) of kijkt
+						u op NOS teletekst pagina <strong>725</strong>.
+					</p>
+					
+					<p>
+						<a href="http://www.noord-holland.nl/web/file?uuid=e6b762bc-451f-4173-989d-90458cdf64ac&owner=f22bc2f4-2ebd-4086-8aa8-7e9c95211aca&contentid=809">Download zwemwaterfolder 'Veilig zwemmen' (2011)</a>
+					</p>
+					
+					<p>
+						Als u op de hoogte wilt worden gehouden van nieuws omtrent zwemmen en veiligheid, vul
+						dan hier uw e-mail adres in en klik op <strong>Abonneer</strong>:
+					</p>
+					
+					<div id="formulier">
+						<input name="email" id="email" type="email" placeholder="E-mail adres"/>
+						<button id="submit" type="submit">Abonneer</button>
 					</div>
-					<h2>{$locatie['naam']}</h2>
-					<div class='zwemfolder'>{$locatie['zwemfolder']}</div>
-					<div class='attributen'>{$attributen}</div>
-					<div class='cbs'>{$cbs_groot}</div>
+					
+					<br/>
+					
+					De laatste berichten staan hier nog eens ter referentie:
+					<ul>
+						<li><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Zwemwaterkwaliteit.htm" target="_blank">9 september 2011</a></li>
+						<li><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Zwemverbod-Oud-Valkeveen-opgeheven.htm" target="_blank">6 september 2011</a></li>
+						<li><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Zwemverbod-Oud-Valkeveen-te-Naarden.htm" target="_blank">1 september 2011</a></li>
+						<li class="verberg"><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Westeinderplassen-Vrouwentroost-Aalsmeer-zwemverbod-opgeheven.htm" target="_blank">31 augustus 2011</a></li>
+						<li class="verberg"><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Zwemverbod-Westeinderplassen-Vrouwentroost-in-Aalsmeer.htm" target="_blank">26 augustus 2011</a></li>
+						<li class="verberg"><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Waarschuwing-blauwalg-Muiderberg-en-Naarderbos-ingetrokken.htm" target="_blank">16 augustus 2011</a></li>
+						<li class="verberg"><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Zwemverbod-Muiderberg-en-Almeerderstrand-opgeheven.htm" target="_blank">18 juli 2011</a></li>
+						<li class="verberg"><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Zwemverbod-voor-Ursemmerplas-opgeheven.htm" target="_blank">7 juli 2011</a></li>
+						<li class="verberg"><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Zwemverbod-Ursemmerplas-ingesteld.htm" target="_blank">29 juni 2011</a></li>
+						<li class="verberg"><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Zwemverbod-locatie-De-Kuifeend-Jagersveld.htm" target="_blank">23 juni 2011</a></li>
+						<li class="verberg"><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Zwemverbod-strand-Muiderberg-langer-van-kracht.htm" target="_blank">22 juni 2011</a></li>
+						<li id="meerli"><a href="#" id="meer">meer...</a></li>
+						<li id="minderli"><a href="#" id="minder">minder...</a></li>
+					</ul>
 				</div>
-			";
-		}
-	}
-	?>
+				<div id="lijst">
+				<?php
+					$attrlijst = array(
+						'drijflijn' => array('drijflijn', 'geen drijflijn'),
+						'aflopend' => array('geleidelijk aflopende onderwaterbodem', 'geen geleidelijk aflopende onderwaterbodem'),
+						'zandstrand' => array('zandstrand', 'geen zandstrand'),
+						'toiletten' => array('toiletten', 'geen toiletten'),
+						'douches' => array('douches', 'geen douches'),
+						'restaurant' => array('restaurant, paviljoen, snackbar', 'geen restaurant, paviljoen, snackbar'),
+						'toegankelijk' => array('vrij toegankelijk', 'niet vrij toegankelijk'),
+						'ov' => array('bereikbaar met openbaar vervoer', 'niet bereikbaar met openbaar vervoer'),
+						'parkeerplaats' => array('parkeergelegenheid', 'geen parkeergelegenheid'),
+						'huisdieren' => array('huisdieren toegestaan', 'huisdieren niet toegestaan'),
+						'ehbo' => array('EHBO', 'geen EHBO'),
+					);
+					$doorzichtlegenda = array(
+						0 => 'doorzicht meer dan 1 meter',
+						1 => 'doorzicht 0,5 tot 1 meter',
+						2 => 'doorzicht minder dan 0,5 meter',
+					);
+					
+					foreach ($locaties as $id => $locatie) {
+						//print_r($locatie);
+						$doorzicht = $doorzichtlegenda[$locatie['doorzicht']];
+						$attributen = "<div class='attribuut doorzicht_{$locatie['doorzicht']}' title='{$doorzicht}' alt='{$doorzicht}'></div>";
+						foreach ($attrlijst as $naam => $omschrijving) {
+							if ($locatie[$naam] == 1) $attributen .= "<div class='attribuut {$naam}' title='{$omschrijving[0]}' alt='{$omschrijving[0]}'></div>";
+							else $attributen .= "<div class='attribuut {$naam}_niet' title='{$omschrijving[1]}' alt='{$omschrijving[1]}'></div>";
+						}
+						
+						$cbs_groot = strtoupper($locatie['cbs']);
+						
+						echo "
+							<div id='$id' class='locatie giftig_{$locatie['giftig']}'>
+								<div class='binnenin'>
+									<div class='advies'>{$locatie['advies']}</div>
+								</div>
+								<h2>{$locatie['naam']}</h2>
+								<div class='zwemfolder'>{$locatie['zwemfolder']}</div>
+								<div class='attributen'>{$attributen}</div>
+								<div class='cbs'>{$cbs_groot}</div>
+							</div>
+						";
+					}
+				}
+				?>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 
