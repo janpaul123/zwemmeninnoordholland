@@ -2,63 +2,96 @@ html {
 	overflow-y: scroll;
 }
 
-p {
-	text-align: justify;
-}
-
 #page {
-	width: 790px;
+	width: 840px;
 	margin: 0 auto;
 }
 
 h1 {
 	font-variant: small-caps;
-	line-height: 1em;
+	font-size: 30px;
+	line-height: 30px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
+a, a:hover, a:visited, a:link {
+	color: #55C;
 }
 
 #top {
+	position: fixed;
+	top: 0px;
+	width: 840px;
 	text-align: center;
-	margin-top: 10px;
-	border-bottom: 1px gray solid;
+	padding-top: 10px;
+	background-color: white;
+	z-index: 1;
+}
+
+#prototype {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	font-weight: bold;
+	font-size: 14px;
 }
 
 #menu {
-	margin: 1em 0;
-	padding: 0px 0.5em;
+	margin: 0;
+	margin-top: 10px;
+	padding-bottom: 10px;
 	list-style-type: none;
 	list-style-image: none;
 	text-align: center;
+	border-bottom: 1px gray solid;
 }
 
 #menu li {
 	margin: 0;
 	padding: 0;
-	float: left;
 	display: inline;
 }
 
 #menu a {
-	display: block;
-	width: 100%;
 	text-decoration: none;
 	display: inline-block;
+	color: #333;
+	font-size: 14px;
+	margin: 0 10px;
 }
 
-#page {
+#menu .selected {
+	text-decoration: underline;
+}
+
+#content {
+	margin-top: 100px;
+}
+
+.contentpage {
+	display: none;
+}
+
+#informatie_content {
+	display: block;
+}
+
+#kaart_content {
 	position: relative;
 }
 
 #map {
-	width: 450px;
-	height: 600px;
+	width: 370px;
+	height: 550px;
 	position: fixed;
 	left: 20px;
-	top: 20px;
+	top: 100px;
 }
 
 #map_canvas { 
-	width: 450px;
-	height: 600px;
+	width: 370px;
+	height: 550px;
 }
 
 .controlUI {
@@ -81,9 +114,22 @@ h1 {
 
 #rechts {
 	position: absolute;
-	left: 500px;
-	top: 20px;
-	width: 500px;
+	right: 0px;
+	top: 0px;
+	width: 430px;
+}
+
+#legenda_content ul {
+	list-style-type: none;
+}
+
+#legenda_content li {
+	margin-bottom: 5px;
+	line-height: 20px;
+}
+
+#legenda_content li .attribuut {
+	margin-right: 5px;
 }
 
 #formulier {
@@ -104,7 +150,7 @@ h1 {
 }
 
 #lijst {
-	width: 500px;
+	width: 430px;
 	border-top: 1px #A8C0DE solid;
 }
 
@@ -131,7 +177,7 @@ h1 {
 	border-bottom: 1px #A8C0DE solid;
 	padding-top: 10px;
 	padding-bottom: 10px;
-	width: 500px;
+	width: 430px;
 	min-height: 45px;
 	cursor: pointer;
 	cursor: hand;
@@ -141,28 +187,22 @@ h1 {
 	background-color: #eee;
 }
 
-/*.locatie*/.selected {
+#kaart_content /*.locatie*/.selected {
 	background-color: #E5F1FF !important;
 }
 
 .locatie .zwemfolder {
 	position: absolute;
 	left: 3px;
-	top: 5px;
+	top: 50%;
 	width: 40px;
 	height: 40px;
+	margin-top: -20px;
 	line-height: 40px;
 	background-color: #A8C0DE;
 	font-size: 18px;
 	color: white;
 	text-align: center;
-}
-
-.locatie h2 {
-	position: absolute;
-	left: 55px;
-	top: 5px;
-	line-height: 40px;
 }
 
 .locatie .cbs {
@@ -174,9 +214,14 @@ h1 {
 }
 
 .locatie .binnenin {
-	margin-top: 30px;
+	margin-top: 6px;
 	margin-left: 55px;
 	margin-bottom: 20px;
+}
+
+.locatie h2 {
+	margin: 0;
+	margin-bottom: 8px;
 }
 
 .locatie .advies {
@@ -198,11 +243,20 @@ h1 {
 	right: 5px;
 }
 
-.locatie .attributen .attribuut {
+/*.locatie .attributen*/ .attribuut {
 	width: 20px;
 	height: 20px;
 	background-image: url(sprite.png);
 	float: left;
+}
+
+#content .float {
+	width: 400px;
+	float: left;
+}
+
+#content .left {
+	margin-right: 40px;
 }
 
 .doorzicht_0 {
