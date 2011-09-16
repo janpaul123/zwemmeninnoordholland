@@ -54,7 +54,9 @@ function selectLocatie($locatie) {
 				}
 				
 				$photos.find('a').fancybox({
-						'overlayShow': false,
+						'overlayShow': true,
+						'overlayOpacity': 0,
+						'overlayColor' : '#fff',
 						'transitionIn'	: 'none',
 						'transitionOut'	: 'none',
 						'titleFormat' : function(title, currentArray, currentIndex, currentOpts) {
@@ -65,7 +67,7 @@ function selectLocatie($locatie) {
 						},
 						'onComplete' : function() {
 							$('.duim').remove();
-							$('#fancybox-outer').append('<div id="omhoog" class="duim"></div><div id="omlaag" class="duim"></div>');
+							$('#fancybox-outer').append('<div id="omhoog" class="duim" title="Omhoog stemmen"></div><div id="omlaag" class="duim" title="Omlaag stemmen"></div>');
 							$('.duim').click(function() { $('.duim').removeClass('clicked'); $(this).addClass('clicked'); });
 						}
 					});

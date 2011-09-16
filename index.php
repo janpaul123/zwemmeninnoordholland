@@ -133,7 +133,7 @@ uasort($locaties, 'cmp');
 				</p>
 				
 				<ul>
-					<li><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Zwemwaterkwaliteit.htm" target="_blank">14 september 2011</a></li>
+					<li><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Zwemwaterkwaliteit.htm" target="_blank">15 september 2011</a></li>
 					<li><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Zwemverbod-Oud-Valkeveen-opgeheven.htm" target="_blank">6 september 2011</a></li>
 					<li><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Zwemverbod-Oud-Valkeveen-te-Naarden.htm" target="_blank">1 september 2011</a></li>
 					<li><a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Westeinderplassen-Vrouwentroost-Aalsmeer-zwemverbod-opgeheven.htm" target="_blank">31 augustus 2011</a></li>
