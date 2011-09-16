@@ -191,6 +191,78 @@ a, a:hover, a:visited, a:link {
 	background-color: #E5F1FF !important;
 }
 
+#kaart_content .locatie .photos {
+	display: none;
+}
+
+#kaart_content /*.locatie*/.selected .photos {
+	display: block;
+}
+
+#kaart_content .locatie .photos img {
+	margin-right: 5px;
+	border: #E5F1FF solid 4px;
+}
+
+#fancybox-title-over {
+	background: none;
+	background-color: white;
+}
+
+#fancybox-title-over .auteur {
+	float: right;
+}
+
+#fancybox-title-over .copyright {
+	color: darkGray;
+}
+
+#kaart_content .locatie .photos a {
+	outline: none;
+	cursor: pointer;
+	cursor: hand;
+}
+
+#kaart_content .locatie .photos a:hover img,
+#kaart_content .locatie .photos a:focus img {
+	border-color: #A0C3EC;
+}
+
+#fancybox-wrap {
+	margin-top: -90px;
+}
+
+#fancybox-wrap .duim {
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	right: 24px;
+	bottom: 24px;
+	z-index: 2000;
+	background-color: white;
+	background-repeat: no-repeat;
+	background-position: center;
+	cursor: pointer;
+	cursor: hand;
+}
+
+#fancybox-wrap #omhoog {
+	background-image: url(thumb_up.png);
+	right: 62px;
+}
+
+#fancybox-wrap #omlaag {
+	background-image: url(thumb_down.png);
+}
+
+#fancybox-wrap .duim:hover {
+	background-color: #E5F1FF;
+}
+
+#fancybox-wrap .clicked {
+	background-color: #A0C3EC !important;
+}
+
 .locatie .zwemfolder {
 	position: absolute;
 	left: 3px;

@@ -1,0 +1,15 @@
+Voor de installatie zijn een aantal vereisten:
+- PHP 5
+- Postgres met PostGIS extensie
+- dBase PECL extensie voor PHP 5
+
+Korte installatie-instructies:
+- Installeer Apache2+PHP5+Postgres
+- Maak een Apache VirtualHost aan (website omgeving)
+- Installeer phpPgAdmin
+- Maak een database in Postgres aan
+- Installeer PostGIS
+- Stel PostGIS in op de zojuist aangemaakte database (postgis.sql)
+- Laad spatial references (spatial_ref_sys.sql)
+- Installeer de dBase PECL extensie
+- Beveilig de admin map met .htaccess

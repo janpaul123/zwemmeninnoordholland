@@ -1,13 +1,19 @@
 <?php
-include('common.php');
+include('./common.php');
 
 $locaties = array();
 
-$stm = $db->query('SELECT *, ST_X(gloc) AS y, ST_Y(gloc) AS x FROM locaties ORDER BY naam ASC');
-
-if ($stm->execute()) {
-while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+$stmLocaties = $db->query('SELECT *, ST_X(gloc) AS y, ST_Y(gloc) AS x FROM locaties');
+$stmLocaties->execute();
+while ($row = $stmLocaties->fetch(PDO::FETCH_ASSOC)) {
 	$locaties[$row['id']] = $row;
+	$locaties[$row['id']]['photos'] = array();
+}
+
+$stmPhotos = $db->query('SELECT locatie_id, photos.* FROM locatie_photos JOIN photos ON locatie_photos.photo_id = photos.id ORDER BY score DESC');
+$stmPhotos->execute();
+while ($row = $stmPhotos->fetch(PDO::FETCH_ASSOC)) {
+	$locaties[$row['locatie_id']]['photos'][] = $row;
 }
 
 // sorteer op zwemfolder
@@ -20,24 +26,35 @@ uasort($locaties, 'cmp');
 <head>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 	<link href="sen.full.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="fancybox/jquery.fancybox-1.3.4.css" media="screen" />
 	<link href="style.css" rel="stylesheet" type="text/css">
 	
 	<script type="text/javascript">
 		var locaties = [
 			<?php
 				foreach ($locaties as $id => $locatie) {
-					echo "['$id', {$locatie['x']}, {$locatie['y']}, {$locatie['giftig']}, '{$locatie['zwemfolder']}'],\n";
+					echo "['$id', {$locatie['x']}, {$locatie['y']}, {$locatie['giftig']}, '{$locatie['zwemfolder']}', [";
+					
+					$i = 0;
+					foreach ($locatie['photos'] as $photo) {
+						if (++$i > 8) break;
+						$photo['owner_name'] = json_encode($photo['owner_name']);
+						echo "[{$photo['id']}, {$photo['owner_id']}, {$photo['owner_name']}],";
+					}
+					
+					echo "]],\n";
 				}
 			?>
 		];
 	</script>
 	
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=panoramio&sensor=true"></script>
 	<script type="text/javascript" src="label.js"></script>
 	<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.3.js"></script>
 	<script type="text/javascript" src="placeholder.js"></script>
+	<script type="text/javascript" src="fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+	<script type="text/javascript" src="fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 	<script type="text/javascript" src="script.js"></script>
-
 </head>
 <body>
 
@@ -51,6 +68,7 @@ uasort($locaties, 'cmp');
 			<li><a id="kaart" href="#">Kaart</a></li>
 			<li><a id="legenda" href="#">Legenda</a></li>
 			<li><a id="gezondheid" href="#">Gezondheid</a></li>
+			<li><a id="wedstrijd" href="#">Wedstrijd</a></li>
 		</ul>
 	</div>
 	<div id="content">
@@ -60,9 +78,8 @@ uasort($locaties, 'cmp');
 					<h2 style="color:red">LET OP</h2>
 					<p>
 						Deze site is slechts een <strong>prototype</strong> ter presentatie aan de provincie Noord-Holland.
-						Hoewel wij de informatie die de provincie beschikbaar stelt telkens zo snel mogelijk proberen te
-						verwerken, kunnen we de juistheid van de informatie op deze site niet garanderen. Gebruik is dus voor
-						<strong>eigen risico</strong>! Gebruik vooralsnog enkel de hiernaast genoemde offici&euml;le kanalen.
+						De data op deze site is op dit moment <strong>niet up-to-date</strong>! Voor een recent overzicht
+						van risicolocaties, kijk op de <a href="http://www.noord-holland.nl/web/Actueel/Nieuws/Artikel/Zwemwaterkwaliteit.htm" target="_blank">site van de provincie</a>.
 					</p>
 				</div>
 				
@@ -197,7 +214,6 @@ uasort($locaties, 'cmp');
 							</div>
 						";
 					}
-				}
 				?>
 				</div>
 			</div>
@@ -373,6 +389,52 @@ uasort($locaties, 'cmp');
 						Afhankelijk van de hoogte van de golven en de windrichting kunnen muien op andere plekken ook gevaar opleveren, vooral voor kinderen. Let daarom goed op de aanwijzingen die op bewaakte stranden worden gegeven.
 					</li>
 				</div>
+			</div>
+		</div>
+		<div class="contentpage" id="wedstrijd_content">
+			<p>
+				Deze site is een prototype gemaakt voor de wedstrijd <a href="http://www.appsfornoordholland.nl/" target="_blank">Apps for Noord-Holland</a>. We willen laten zien hoeveel voordelen een online platform voor de informatieverstrekking omtrent veilig zwemmen biedt.
+				We doelen hiermee zeker niet alleen op Noord-Holland, een uiteindelijke oplossing voor heel Nederland zou natuurlijk het beste zijn.
+			</p>
+			
+			<div class="float left">
+				<h2>Visie</h2>
+				<p>
+					Een website als deze kan als tussenstap dienen voor integrale informatievoorziening. Net als met teletekst zouden alle provincies de data omtrent zwemlocaties via importeerscripts kunnen laden in de centrale database.
+					Op deze manier kan zelfs &eacute;&eacute;n live-API beschikbaar worden gesteld die werkt voor heel Nederland, omdat de verschillen van dataverwerking per provincie kunnen worden gladgestreken bij het importeerproces.
+					Ook nieuwsberichten, gezondheidinformatie, en andere vormen van communicatie kunnen door de verschillende provincies bijeen worden gebracht, wat consistentie in de presentatie oplevert, en kosten kan besparen doordat teksten onder vrije licenties kunnen worden hergebruikt.
+					Zoals we op deze site ook al laten zien, kunnen gebruikers direct meldingen krijgen van updates vanuit provincies door middel van het achter laten van een e-mail adres.
+				</p>
+				
+				<h2>Toerisme</h2>
+				<p>
+					Voor gebruikers is het prettig als er &eacute;&eacute;n punt is op het web waar men terecht kan bij het inwinnen van informatie over veiligheid, maar ook om zwemlocaties in eigen omgeving of op toeristische uitstap te vinden.
+					Dit is dan ook een uitgelezen kans om integraal deze informatie in verschillende talen aan te bieden, omdat dit minder zou kosten dan wanneer elke provincie dit zelf moet doen. Voor heel Nederland zou dit dan ook een prachtige kans zijn
+					om een goede indruk achter te laten bij internationale toeristen.
+				</p>
+				
+				<h2>Crowdsourcing</h2>
+				<p>
+					Een van de toepassingen van een nationaal webplatform als deze is de terugkoppeling van gebruikers. In dit prototype laten we al zien dat het mogelijk is dat bezoekers van zwemgelegenheden zelf kunnen aangeven als ze iets verdachts gezien hebben.
+					Ook laten we hier zien dat het tonen van goede afbeeldingen bij de locaties kan worden uitbesteed aan gebruikers, door hen te laten stemmen op goede foto's. Een uitbreiding hiervan is dat mensen zelf foto's en berichten
+					kunnen achterlaten om zo een conversatie te beginnen, zo kunnen tips en ervaringen uitgewisseld worden.
+				</p>
+			</div>
+			
+			<div class="float">
+				<h2>Native apps</h2>
+				<p>
+					Wanneer een integrale API beschikbaar is waar alle provincies op kunnen aansluiten, kunnen de apps voor smartphones die al gemaakt zijn voor de Apps for Noord-Holland wedstrijd hier eenvoudig voor worden aangepast. De beschikking hebben
+					tot recente informatie via mobiele telefoons zou de zwemveiligheid kunnen verbeteren. Maar dat niet alleen: de crowdsource toepassingen strekken zich nog verder uit naar het mobiele platform. Zo zouden gebruikers onmiddellijk
+					foto's kunnen uploaden, bijvoorbeeld om een sfeerimpressie te geven, maar ook om een verdachte situatie te melden. Daarnaast is het mogelijk via push-berichten gebruikers direct in te lichten wanneer er waarschuwingen worden uitgegeven voor zwemlocaties
+					in hun provincie of zelfs in een bepaalde straal rondom een opgegeven postcode. Tenslotte is het mogelijk voor gebruikers om snel te zien of er toevallig vrienden in de buurt zijn van een zwemlocatie door middel van koppeling met sites zoals Foursquare.
+				</p>
+				
+				<h2>Legio mogelijkheden</h2>
+				<p>
+					Met deze site willen wij een voorproefje geven van wat vandaag de dag mogelijk is om met informatievoorziening zowel veiligheid van zwemmen als toerisme in het algemeen te bevorderen is. Aan het eind van de wedstrijd Apps for Noord-Holland geven wij de broncode van deze site
+					vrij voor eenieder om te bestuderen, met name gericht op de provincie Noord-Holland, andere provincies, en Rijkswaterstaat. Wij hopen dan ook dat dit uiteindelijk impuls kan geven aan een nationaal besluit tot een integrale online informatievoorziening omtrent zwemveiligheid.
+				</p>
 			</div>
 		</div>
 	</div>

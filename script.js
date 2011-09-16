@@ -3,7 +3,7 @@ var center = new google.maps.LatLng(52.667063, 4.886169);
 var indebuurt;
 var map = null;
 
-function maakKnop(text, title) {
+function maakKnop(html, title) {
 	// Create a div to hold the control.
 	var controlDiv = document.createElement('DIV');
 	
@@ -21,7 +21,7 @@ function maakKnop(text, title) {
 	// Set CSS for the control interior
 	var controlText = document.createElement('DIV');
 	controlText.className = 'controlText';
-	controlText.innerHTML = text;
+	controlText.innerHTML = html;
 	controlUI.appendChild(controlText);
 	
 	return controlDiv;
@@ -31,6 +31,51 @@ function updateFixedLocation() {
 	var left = $('#content').offset().left;
 	$('#top').css('left', left);
 	$('#map').css('left', left);
+}
+
+function selectLocatie($locatie) {
+	$('.locatie.selected').removeClass('selected');
+	$locatie.addClass('selected');
+	var id = $locatie.attr('id');
+	if ($locatie.find('.photos').size() <= 0) {
+		$photos = $('<div class="photos"></div>');
+		
+		for (var i in locaties) {
+			if (locaties[i][0] == id) {
+				for (var j in locaties[i][5]) {
+					var photoArray = locaties[i][5][j];
+					$img = $('<img></img>');
+					$img.attr('src', 'http://mw2.google.com/mw-panoramio/photos/mini_square/' + photoArray[0] + '.jpg');
+					$a = $('<a></a>');
+					$a.attr('href', 'http://mw2.google.com/mw-panoramio/photos/medium/' + photoArray[0] + '.jpg');
+					$a.attr('rel', 'photos_' + id);
+					$a.append($img);
+					$photos.append($a);
+				}
+				
+				$photos.find('a').fancybox({
+						'overlayShow': false,
+						'transitionIn'	: 'none',
+						'transitionOut'	: 'none',
+						'titleFormat' : function(title, currentArray, currentIndex, currentOpts) {
+							return '<span id="fancybox-title-over">' +
+								'<a href="http://www.panoramio.com/photo/' + locaties[i][5][currentIndex][0] + '" target="_blank"><img src="http://www.panoramio.com/img/logo-small.gif"/></a>' +
+								'<div class="auteur">Auteur: <a href="http://www.panoramio.com/user/' + locaties[i][5][currentIndex][1] + '" target="_blank">' + locaties[i][5][currentIndex][2] + '</a></div>' +
+								'<div class="copyright">Photos provided by Panoramio are under the copyright of their owners.</span></span>';
+						},
+						'onComplete' : function() {
+							$('.duim').remove();
+							$('#fancybox-outer').append('<div id="omhoog" class="duim"></div><div id="omlaag" class="duim"></div>');
+							$('.duim').click(function() { $('.duim').removeClass('clicked'); $(this).addClass('clicked'); });
+						}
+					});
+				
+				break;
+			}
+		}
+		
+		$locatie.find('.binnenin').append($photos);
+	}
 }
 
 function initMap() {
@@ -71,6 +116,33 @@ function initMap() {
 		});
 	}
 	
+	/*
+	var panoramioLayer = new google.maps.panoramio.PanoramioLayer();
+	google.maps.event.addListener(panoramioLayer, 'click', function(event) {
+		var photoDiv = document.getElementById('photoPanel');
+		var attribution = document.createTextNode(event.featureDetails.title + ": " + event.featureDetails.author);
+		var br = document.createElement("br");
+		var link = document.createElement("a");
+		link.setAttribute("href", event.featureDetails.url);
+		link.appendChild(attribution);
+		photoDiv.appendChild(br);
+		photoDiv.appendChild(link);
+	});
+	
+	var fotoknop = maakKnop('<img src="camera.png"/>', "Toon foto's");
+	fotoknop.index = 3;
+	map.controls[google.maps.ControlPosition.TOP_RIGHT].push(fotoknop);
+	
+	google.maps.event.addDomListener(fotoknop, 'click', function() {
+		if (panoramioLayer.getMap() == null) {
+			panoramioLayer.setMap(map);
+		}
+		else {
+			panoramioLayer.setMap(null);
+		}
+	});
+	*/
+	
 	var flags = [
 		new google.maps.MarkerImage('flag_0.png', new google.maps.Size(16, 16), new google.maps.Point(0,0), new google.maps.Point(10, 14)),
 		new google.maps.MarkerImage('flag_1.png', new google.maps.Size(16, 16), new google.maps.Point(0,0), new google.maps.Point(10, 14)),
@@ -95,8 +167,7 @@ function initMap() {
 		google.maps.event.addListener(marker, 'click', function() {
 			var $id = $('#' + this.elid);
 			$('html,body').animate({scrollTop: $id.offset().top - $(window).height()/3}, 1000);
-			$('.locatie.selected').removeClass('selected');
-			$id.addClass('selected');
+			selectLocatie($id);
 		});
 		markers[locatie[0]] = marker;
 		
@@ -104,8 +175,7 @@ function initMap() {
 			var marker = markers[$(this).attr('id')];
 			if (map.getZoom() < 12) map.setZoom(12);
 			map.panTo(marker.getPosition());
-			$('.locatie.selected').removeClass('selected');
-			$(this).addClass('selected');
+			selectLocatie($(this));
 		});
 	}
 	

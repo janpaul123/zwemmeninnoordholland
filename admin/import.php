@@ -1,6 +1,6 @@
 <?php
-include('common.php');
-include('Shapefile.inc.php');
+include('../common.php');
+include('./shapefile.inc.php');
 
 // load shapefile
 $shpf = new ShapeFile("zwemwaterlox.shp", array('noparts' => false));
