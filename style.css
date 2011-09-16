@@ -83,6 +83,15 @@ a, a:hover, a:visited, a:link {
 	padding-left: 3px;
 }
 
+#informatie_content div.giftig_2 {
+	padding: 5px;
+	margin-bottom: 10px;
+}
+
+#informatie_content div.giftig_2 p {
+	margin: 0;
+}
+
 #kaart_content {
 	position: relative;
 }
