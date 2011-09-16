@@ -77,6 +77,12 @@ a, a:hover, a:visited, a:link {
 	display: block;
 }
 
+#informatie_content ul {
+	list-style-type: none;
+	margin-left: 0px;
+	padding-left: 3px;
+}
+
 #kaart_content {
 	position: relative;
 }
