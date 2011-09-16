@@ -415,8 +415,8 @@ uasort($locaties, 'cmp');
 				
 				<h2>Crowdsourcing</h2>
 				<p>
-					Een van de toepassingen van een nationaal webplatform als deze is de terugkoppeling van gebruikers. In dit prototype laten we al zien dat het mogelijk is dat bezoekers van zwemgelegenheden zelf kunnen aangeven als ze iets verdachts gezien hebben.
-					Ook laten we hier zien dat het tonen van goede afbeeldingen bij de locaties kan worden uitbesteed aan gebruikers, door hen te laten stemmen op goede foto's. Een uitbreiding hiervan is dat mensen zelf foto's en berichten
+					Een van de toepassingen van een nationaal webplatform als deze is de terugkoppeling van gebruikers. In dit prototype laten we al zien dat het tonen van goede afbeeldingen bij de locaties kan worden uitbesteed aan gebruikers, door hen te laten stemmen op goede foto's.
+					Maar het is bijvoorbeeld ook mogelijk dat bezoekers van zwemlocaties zelf kunnen aangeven als ze iets verdachts gezien hebben. Nog een stap verder is dat mensen zelf foto's en berichten
 					kunnen achterlaten om zo een conversatie te beginnen, zo kunnen tips en ervaringen uitgewisseld worden.
 				</p>
 			</div>
