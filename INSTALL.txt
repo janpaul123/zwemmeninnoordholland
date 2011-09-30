@@ -13,3 +13,5 @@ Korte installatie-instructies:
 - Laad spatial references (spatial_ref_sys.sql)
 - Installeer de dBase PECL extensie
 - Beveilig de admin map met .htaccess
+- Importeer de SQL bestanden (sql/)
+- Draai de importeerscripts (admin/)
